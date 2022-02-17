@@ -1,0 +1,154 @@
+---
+title: "Analysis"
+author: "Lauryn Joslin"
+date: "16/02/2022"
+output: html_document
+---
+
+This is the Analysis.Rmd
+
+
+```{r}
+dat <- read.csv("Sequences.csv")
+#I will call sequences.csv "dat", this csv was created in Download.R
+```
+
+```{r}
+dat
+#looking at the data frame to confirm its what we expect
+```
+
+
+```{r}
+lengths(regmatches(dat, gregexpr("A", dat[2,])))
+#Finding the number of A in first sequence 
+```
+
+```{r}
+lengths(regmatches(dat, gregexpr("A", dat[3,])))
+#Finding the number of A in second sequence 
+```
+
+```{r}
+lengths(regmatches(dat, gregexpr("A", dat[4,])))
+#Finding the number of A in third sequence 
+```
+
+
+```{r}
+lengths(regmatches(dat, gregexpr("T", dat[2,])))
+#Finding the number of T in first sequence 
+```
+```{r}
+lengths(regmatches(dat, gregexpr("T", dat[3,])))
+#Finding the number of T in second sequence 
+```
+
+```{r}
+lengths(regmatches(dat, gregexpr("T", dat[4,])))
+#Finding the number of T in third sequence 
+```
+
+
+
+```{r}
+lengths(regmatches(dat, gregexpr("C", dat[2,])))
+#Finding the number of C in first sequence 
+```
+
+```{r}
+lengths(regmatches(dat, gregexpr("C", dat[3,])))
+#Finding the number of C in second  sequence 
+```
+
+```{r}
+lengths(regmatches(dat, gregexpr("C", dat[4,])))
+#Finding the number of C in third sequence 
+```
+
+
+
+```{r}
+lengths(regmatches(dat, gregexpr("G", dat[2,])))
+#Finding the number of G in first sequence 
+```
+
+```{r}
+lengths(regmatches(dat, gregexpr("G", dat[3,])))
+#Finding the number of G in second sequence 
+```
+
+```{r}
+lengths(regmatches(dat, gregexpr("G", dat[4,])))
+#Finding the number of G in third sequence 
+```
+
+
+```{r}
+print(dat[2,])
+#printing the first sequence
+```
+
+```{r}
+print(dat[3,])
+#printing the second sequence
+```
+
+```{r}
+print(dat[4,])
+#printing the third sequence
+```
+
+```{r}
+sequence = c("first", "second", "third")
+Anum = c("155", "156", "155")
+Tnum = c("114", "114", "115")
+Cnum = c("82", "82", "81")
+Gnum = c("131", "131", "132")
+#These numbers are from the above results  
+               
+df <-data.frame(sequence,Anum, Tnum, Cnum, Gnum)
+#putting them together in a dataframe
+df
+#a table off all sequences with the number of each nucleotide 
+```
+```{r}
+df$Anum <- as.numeric(df$Anum) 
+df$Tnum <- as.numeric(df$Tnum)
+df$Cnum <- as.numeric(df$Cnum)
+df$Gnum <- as.numeric(df$Gnum)
+#converting from character to numeric for future calculations
+summary(df)
+```
+
+
+```{r}
+df$GC <- df$Gnum + df$Cnum #adding to get total Gs and Cs
+df$AT <- df$Anum + df$Tnum #adding to get total As and Ts
+df$total <- df$AT + df$GC #adding to get full total nucleotides
+```
+
+```{r}
+df
+df$GC_Content <- (df$GC / df$total) * 100 #Percent of GC is GC divided by total times by 100
+```
+```{r}
+library(dplyr)
+#loading dplyr package
+```
+
+
+```{r}
+GC_content_table <- select(df, sequence, GC_Content)
+GC_content_table
+#made table, removed columns that aren't of interest
+```
+```{r}
+![bacteria image.](/Users/LaurynJoslin/Desktop/Rentrez/ljbac)
+#image of bacteria
+[Here is the wikepedia page for Borrelia_burgdorferi](https://en.wikipedia.org/wiki/Borrelia_burgdorferi)
+#link to wikipedia 
+```
+
+
+
